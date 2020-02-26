@@ -15,6 +15,7 @@ trello : https://trello.com/b/QAQU4JUv/bataille-denfant
 - Gagne
 - Perdu
 - Fin partie
+- Erreur
 
 ## Caractéristiques
 - Jardin de 12 cases par 12 cases
