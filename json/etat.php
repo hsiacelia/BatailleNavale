@@ -41,13 +41,29 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                 $obj->jardinJoueur = $joueurActuel['jardin'];
 
                 // modifier le jardin adverse pour le joueur actuel
+                $toutesLesCasesAdverses = [];
+                foreach ($joueurAdversaire['jardin'] as $ligne) {
+                    $toutesLesCasesAdverses = array_merge($toutesLesCasesAdverses, $ligne);
+                }
+                $toutesLesCasesAdverses = array_unique($toutesLesCasesAdverses);
+                foreach ($toutesLesCasesAdverses as $numCase => $case) {
+                    $toutesLesCasesAdverses[$numCase] = rtrim($case, "+-");
+                }
+                $nombreIterration = array_count_values($toutesLesCasesAdverses);
+                unset($nombreIterration['0']);
+                $jardinAdversaire;
                 foreach ($joueurAdversaire['jardin'] as $numLigne => $ligne) {
                     foreach ($ligne as $numCase => $case) {
                         if (strpos($case, "+") !== false) {
-                            $joueurAdversaire['jardin'][$numLigne][$numCase] = "+";
-                            // voir si l'objet est touché en entier ou pas TODO
+                            if (rtrim($case, "+") != "0" && $nombreIterration[rtrim($case, "+")] == 1) {
+                                echo 'prout';
+                                $jardinAdversaire[$numLigne][$numCase] = rtrim($case, "+");
+                            }
+                            else{
+                                $jardinAdversaire[$numLigne][$numCase] = "+";
+                            }
                         } else if (strpos($case, "-") !== false) {
-                            $joueurAdversaire['jardin'][$numLigne][$numCase] = "-";
+                            $jardinAdversaire[$numLigne][$numCase] = "-";
                         } else {
                             unset($obj->numeroTour, $obj->etatTour, $obj->jardinJoueur);
                             $obj->etat = "erreur";
@@ -56,8 +72,9 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                         }
                     }
                 }
+
                 if ($obj->etat != "erreur") {
-                    $obj->jardinAdversaire = $joueurAdversaire['jardin'];
+                    $obj->jardinAdversaire = $jardinAdversaire;
                 }
             } else if ($joueurActuel['etat'] == "gagne") {
                 $obj->jardin = $joueurActuel['jardin'];
