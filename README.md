@@ -14,7 +14,7 @@ trello : https://trello.com/b/QAQU4JUv/bataille-denfant
 - Tour n attente
 - Gagne
 - Perdu
-- Fin partie
+- Erreur
 
 ## Caractéristiques
 - Jardin de 12 cases par 12 cases
@@ -26,3 +26,48 @@ trello : https://trello.com/b/QAQU4JUv/bataille-denfant
 
 ## Nomenclature
 - Tout en français
+
+## Nomenclature json
+- **id** : id de la partie
+
+- **nombreJoueurs** : le nombre de joueurs dans la partie
+
+- **joueurs** : les joueurs avec leur id, état et matrice de jardin
+
+    - **id** : id du joueur
+
+    - **etat** : l'état dans lequel est le joueur
+        
+        - *menu* 
+
+        - *attente partie* 
+
+        - *placement en cours* 
+
+        - *placement fini* 
+
+        - *tour n joue* (où *n* est le numéro du tour)
+
+        - *tour n attente* (où *n* est le numéro du tour)
+
+        - *gagne* 
+
+        - *perdu* 
+
+        - *erreur* 
+
+    - **jardin** : la représenation du jardin du joueur représenté par une matrice
+
+        - **Un *"-"* représente une case non touché**
+
+        - **Un *"+"* représente une case touché**
+
+        - **Un *"0"* représente une case vide**
+
+        - **Une lettre représente un objet**
+
+        - **Exemples :**
+            - *"0-"* représente une case vide non touché
+            - *"0+"* représente une case vide touché
+            - *"T-"* représente une case avec l'objet T non touché
+            - *"T+"* représente une case avec l'objet T touché
