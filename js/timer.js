@@ -1,8 +1,8 @@
-$(function(){
-    var temps = $("[timer]");
+$(document).ready(function(){
+    var temps = $("[temps]");
     setInterval(function(){
-        $.post("php/Timer.php", function(data){
-            temps.html(data)
-        })
+        $.post("php/Timer.php", {type:"Timer"},function(data){
+            temps.html("secondes" + data)
+        });
     },1000);
 });

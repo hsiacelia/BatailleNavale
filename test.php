@@ -7,11 +7,14 @@
     <script type = "application/javascript" src="js/timer.js"></script>
 </head>
 <body>
-    <?php include ('pho/Timer.php');?>
     <p temps>
         <?php
+            include('php/Timer.php');
             $timer = new Timer();
-            echo($timer->tour());
+            $timer->commencer(true);
+            $timer->affiche(1,true);
+            //echo $timer->tour();
+            //$timer->affiche();
         ?>
     </p>
 </body>
