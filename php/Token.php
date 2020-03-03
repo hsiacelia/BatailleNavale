@@ -1,26 +1,41 @@
 <?php
 
 class Token {
+    private $joueur;
+    //lorsqu'on passe au tour suivant faut reinitialiser le token et pas quand on tire
+    public function __construct($j)
+    {
+        //le json file à partir de joueur
+        $this->joueur = $j;
+    }
 
     function create(){
         $str = array();
-        for ($i = 0, $î<5, ++$i){
-            $str = $str + random_int(0,9);
+        $i = 0;
+        while ($i<5) {
+            $str = $str + rand(0,9);
+            ++$i;
         }
         return implode($str);
     }
 
-    function ajoute($nbTour){
-        json_encode('token'+$nbTour => $this->create());
+    function verifier(){
+        //il faut une variable temporaire dans le json pour pas ecraser le token et pouvoir comparer
+        $token = $this->joueur['token'];
+        $tmp = $this->joueur['tmp'];
+        if($token == null){
+            $this->joueur['token'] = $this->create();
+            return true; // il peut jouer
+        }
+        elseif($token != null){
+            if($token == $tmp) {
+                return true; // il peut jouer
+            }
+            else return false; // il ne peut pas jouer il triche !!!
+        }
     }
 
-    function verif($nbTour,$json){
-        if(json_decode($json) != null){
-            return false; // ne contient pas de token pour ce tour
-        }
-        else{
-            $this->ajoute($nbTour);
-            return true; // contient un token pour ce tour
-        }
+    function ajouter(){
+        $this->joueur['tmp'] = $this->create();
     }
 }
