@@ -31,6 +31,7 @@ class Timer{
 (function () {
     'use strict';
     $(document).ready(function() {
-        let t = new Timer(75);
+        console.log('bleubleu');
+        let t = new Timer(10);
     });
 })();
