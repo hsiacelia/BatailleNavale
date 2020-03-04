@@ -17,8 +17,7 @@
                     method: 'GET',
                     data: {
                         "idPartie": idPartie,
-                        "idJoueur": idJoueur,
-                        "token": token
+                        "idJoueur": idJoueur
                     }
                 }).done(function (data) {
                     console.log('done');
