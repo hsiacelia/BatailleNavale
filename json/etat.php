@@ -29,6 +29,8 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
             $obj->etat = $joueurActuel['etat'];
             if ($joueurActuel['etat'] == "placement en cours") {
                 $obj->jardin = $joueurActuel['jardin'];
+                //le truc de celia
+                // if(estCeQueCestFini($date, $temps)) { }
             } else if ($joueurActuel['etat'] == "placement fini") {
                 $obj->jardin = $joueurActuel['jardin'];
             } else if (preg_match('#^tour ([0-9]{1,3}) (joue|attente)$#', $joueurActuel['etat'], $match)) {
@@ -56,7 +58,6 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                     foreach ($ligne as $numCase => $case) {
                         if (strpos($case, "+") !== false) {
                             if (rtrim($case, "+") != "0" && $nombreIterration[rtrim($case, "+")] == 1) {
-                                echo 'prout';
                                 $jardinAdversaire[$numLigne][$numCase] = rtrim($case, "+");
                             }
                             else{
