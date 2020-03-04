@@ -1,21 +1,23 @@
 <?php
-session_start();
 
-if (isset($_GET['token'])) {
-    if (isset($_SESSION['token'])) {
-        if ($_GET['token'] != $_SESSION['token']) {
-            exit("Erreur de token : les tokens sont différents");
-        } else {
-            //tout va bien
-        print('tout va bien');
-        }
-    } else {
-        $_SESSION['token'] = $_GET['token'];
-        print('création token');
+function create(){
+    $str = array();
+    $i = 0;
+    while ($i<10) {
+        $str = $str + rand(0,9);
+        ++$i;
     }
-} else {
-    exit("Erreur de token : pas de token envoyé");
+    return implode($str);
 }
 
-// $_COOKIE["token"] = "foo bar";
-// setCookie('token', $_GET['token'], 0);
+function verifier($joueur,$token){
+    if($token == null){
+        $joueur['token'] = $token;
+        return true; // il peut jouer
+    }
+    $tokenjs = $joueur['token'];
+    if($tokenjs == $token) {
+        return true; // il peut jouer
+    }
+    return false; // il peut pas jouer il triche !!!
+}
