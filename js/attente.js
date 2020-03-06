@@ -1,0 +1,5 @@
+class attente{
+    function EcranAttente(){
+
+    }
+}
