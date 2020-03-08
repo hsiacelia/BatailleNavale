@@ -25,75 +25,37 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'], $_GET['X'], $_GET['Y'])) {
             $joueurAdversaire;
 
             foreach ($partie['joueurs'] as $joueur) {
-                if ($joueur['id'] == $_GET['idJoueur']) {
+                if ($joueur['id'] == $idJoueur) {
                     $joueurActuel = $joueur;
                 } else {
                     $joueurAdversaire = $joueur;
                 }
             }
-            
-        if (isset($joueurActuel)) {
-            require_once('./../php/Token.php');
-            
-            /*$obj->etat = $joueurActuel['etat'];
-            if ($joueurActuel['etat'] == "placement en cours") {
-                $obj->jardin = $joueurActuel['jardin'];
-                //le truc de celia
-                // if(estCeQueCestFini($date, $temps)) { }
-            } else if ($joueurActuel['etat'] == "placement fini") {
-                $obj->jardin = $joueurActuel['jardin'];
-            } else if (preg_match('#^tour ([0-9]{1,3}) (joue|attente)$#', $joueurActuel['etat'], $match)) {
-                $numeroTour = $match[1];
-                $etatTour = $match[2];
 
-                $obj->etat = "tour";
-                $obj->numeroTour = $numeroTour;
-                $obj->etatTour = $etatTour;
-                $obj->jardinJoueur = $joueurActuel['jardin'];
-
-                $toutesLesCasesAdverses = [];
-                foreach ($joueurAdversaire['jardin'] as $ligne) {
-                    $toutesLesCasesAdverses = array_merge($toutesLesCasesAdverses, $ligne);
-                }
-                $toutesLesCasesAdverses = array_unique($toutesLesCasesAdverses);
-                foreach ($toutesLesCasesAdverses as $numCase => $case) {
-                    $toutesLesCasesAdverses[$numCase] = rtrim($case, "+-");
-                }
-                $nombreIterration = array_count_values($toutesLesCasesAdverses);
-                unset($nombreIterration['0']);
-                $jardinAdversaire;
-                foreach ($joueurAdversaire['jardin'] as $numLigne => $ligne) {
-                    foreach ($ligne as $numCase => $case) {
-                        if (strpos($case, "+") !== false) {
-                            if (rtrim($case, "+") != "0" && $nombreIterration[rtrim($case, "+")] == 1) {
-                                $jardinAdversaire[$numLigne][$numCase] = rtrim($case, "+");
-                            }
-                            else{
-                                $jardinAdversaire[$numLigne][$numCase] = "+";
-                            }
-                        } else if (strpos($case, "-") !== false) {
-                            $jardinAdversaire[$numLigne][$numCase] = "-";
-                        } else {
-                            unset($obj->numeroTour, $obj->etatTour, $obj->jardinJoueur);
-                            $obj->etat = "erreur";
-                            $obj->message = "Convention jardin adverse";
-                            break 2;
+            if (isset($joueurActuel)) {
+                require_once('./../php/token.php');
+                $token = creerToken();
+                // echo $token;
+                if (verifierToken($joueurActuel, $token)) {
+                    $changement = str_replace('-', '+', $joueurActuel['jardin'][$X][$Y]);
+                    $joueurActuel['jardin'][$X][$Y] = $changement;
+                    foreach ($partie['joueurs'] as $key => $joueur) {
+                        if ($joueur['id'] == $idJoueur) {
+                            $partie['joueurs'][$key] = $joueurActuel;
+                            $partie['joueurs'][$key]['jardin'] = $joueurActuel['jardin'];
+                            $partie['joueurs'][$key]['etat'] = str_replace('joue', 'attente', $partie['joueurs'][$key]['etat']);
                         }
                     }
+                    file_put_contents($fichierPartie, json_encode($partie));
+                    $obj->success = true;
+                } else {
+                    $obj->success = false;
+                    $obj->message = "Mauvais token";
                 }
-
-                if ($obj->etat != "erreur") {
-                    $obj->jardinAdversaire = $jardinAdversaire;
-                }
-            } else if ($joueurActuel['etat'] == "gagne") {
-                $obj->jardin = $joueurActuel['jardin'];
-            } else if ($joueurActuel['etat'] == "perdu") {
-                $obj->jardin = $joueurActuel['jardin'];
-            }*/
-        } else {
-            $obj->success = false;
-            $obj->message = "Joueur inconnu";
-        }
+            } else {
+                $obj->success = false;
+                $obj->message = "Joueur inconnu";
+            }
         } else {
             $obj->success = false;
             $obj->message = "Partie inconnue";
@@ -104,7 +66,7 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'], $_GET['X'], $_GET['Y'])) {
     }
 } else {
     $obj->success = false;
-    $obj->message = 'Pas assez de variables entrante.';
+    $obj->message = 'Pas assez de variables entrante';
 }
 
 echo json_encode($obj);
