@@ -41,7 +41,7 @@
                                     Etat = new PlacementPions();
                                     break;
                                 case 'Tour':
-                                    Etat = new Tour();
+                                    Etat = new Tour(data.numeroTour);
                                     break;
                                 case 'Perdu':
                                     Etat = new Perdu();

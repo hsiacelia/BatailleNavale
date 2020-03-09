@@ -29,17 +29,34 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
             }
         }
 
+
         if (isset($joueurActuel)) {
             $obj->etat = $joueurActuel['etat'];
             if ($joueurActuel['etat'] == "placement en cours") {
                 $obj->jardin = $joueurActuel['jardin'];
-                //le truc de celia
-                // if(estCeQueCestFini($date, $temps)) { }
+
+                //vérification temps écoulé
+                require_once './../php/Timer.php';
+                $temps = new Timer();
+                $obj->prout = $joueurActuel['debutTour'];
+                if ($temps->resultat($joueurActuel['debutTour'], false)) {
+                    $obj->dev = 'pas fini !';
+                } else {
+                    $obj->dev = 'fini !';
+                    $partie['joueurs'][0]['etat'] = "tour 1 joue";
+                    $partie['joueurs'][1]['etat'] = "tour 1 joue";
+                    $partie['joueurs'][0]['debutTour'] = strtotime('now');
+                    $partie['joueurs'][1]['debutTour'] = strtotime('now');
+
+                    file_put_contents($fichierPartie,  json_encode($partie));
+                }
             } else if ($joueurActuel['etat'] == "placement fini") {
                 $obj->jardin = $joueurActuel['jardin'];
                 if ($joueurAdversaire['etat'] == "placement fini") {
                     $partie['joueurs'][0]['etat'] = "tour 1 joue";
+                    $partie['joueurs'][0]['debutTour'] = strtotime('now');
                     $partie['joueurs'][1]['etat'] = "tour 1 joue";
+                    $partie['joueurs'][1]['debutTour'] = strtotime('now');
 
                     file_put_contents($fichierPartie,  json_encode($partie));
                 }
@@ -88,43 +105,58 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                     $etatTourAdversaire = $match2[2];
 
                     if ($numeroTourAdversaire == $numeroTour) {
-                        if ($etatTourAdversaire == "attente") {
+                        if ($etatTourAdversaire == "attente" && $etatTour == "attente") {
                             $prochainTour = $numeroTour + 1;
                             $partie['joueurs'][0]['etat'] = "tour " . $prochainTour . " joue";
                             $partie['joueurs'][1]['etat'] = "tour " . $prochainTour . " joue";
+                            $partie['joueurs'][0]['debutTour'] = strtotime('now');
+                            $partie['joueurs'][1]['debutTour'] = strtotime('now');
 
                             file_put_contents($fichierPartie,  json_encode($partie));
+                        } else {
+                            //vérification temps écoulé
+                            require_once './../php/Timer.php';
+                            $temps = new Timer();
+                            if ($temps->resultat($joueurActuel['debutTour'], true)) {
+                                // echo 'pas fini !';
+                            } else {
+                                // echo 'fini';
+                                $partie['joueurs'][$idJoueurActuel]['etat'] = "tour " . $numeroTour . " attente";
+                                $partie['joueurs'][$idJoueurAdversaire]['etat'] = "tour " . $numeroTour . " attente";
+
+                                file_put_contents($fichierPartie,  json_encode($partie));
+                            }
+                        }
+
+                        //vérification victoire
+                        $toutesLesCasesAdverses = [];
+                        foreach ($joueurAdversaire['jardin'] as $ligne) {
+                            $toutesLesCasesAdverses = array_merge($toutesLesCasesAdverses, $ligne);
+                        }
+                        $toutesLesCasesAdverses = array_unique($toutesLesCasesAdverses);
+                        $nombreiteration = array_count_values($toutesLesCasesAdverses);
+                        foreach ($nombreiteration as $key => $iteration) {
+                            if (strpos($key, '+') !== FALSE) {
+                                unset($nombreiteration[$key]);
+                            }
+                        }
+
+                        if (count($nombreiteration) == 1) {
+                            echo 'gagne lustucru';
+
+                            $partie['joueurs'][$idJoueurActuel]['etat'] = "gagne";
+                            $partie['joueurs'][$idJoueurAdversaire]['etat'] = "perdu";
+
+                            //TODO pas de gestion des égalités
+
+                            file_put_contents($fichierPartie,  json_encode($partie));
+                            $obj->etat = 'gagne';
                         }
                     } else {
                         $obj->etat = "erreur";
                     }
                 } else {
                     $obj->etat = "erreur";
-                }
-
-                //vérification victoire
-                $toutesLesCasesAdverses = [];
-                foreach ($joueurAdversaire['jardin'] as $ligne) {
-                    $toutesLesCasesAdverses = array_merge($toutesLesCasesAdverses, $ligne);
-                }
-                $toutesLesCasesAdverses = array_unique($toutesLesCasesAdverses);
-                $nombreiteration = array_count_values($toutesLesCasesAdverses);
-                foreach ($nombreiteration as $key => $iteration) {
-                    if (strpos($key, '+') !== FALSE) {
-                        unset($nombreiteration[$key]);
-                    }
-                }
-
-                if (count($nombreiteration) == 1) {
-                    echo 'gagne lustucru';
-                    
-                    $partie['joueurs'][$idJoueurActuel]['etat'] = "gagne";
-                    $partie['joueurs'][$idJoueurAdversaire]['etat'] = "perdu";
-
-                    //TODO pas de gestion des égalités
-                    
-                    file_put_contents($fichierPartie,  json_encode($partie));
-                    $obj->etat = 'gagne';
                 }
 
                 if ($obj->etat != "erreur") {

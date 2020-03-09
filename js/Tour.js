@@ -1,5 +1,5 @@
 class Tour {
-    constructor() {
-        $('body').html('Tour');
+    constructor(numeroTour) {
+        $('body').html('Tour ' + numeroTour);
     }
 }
