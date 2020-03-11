@@ -20,7 +20,7 @@
                         "idJoueur": idJoueur
                     }
                 }).done(function (data) {
-                    // console.log(data);
+                    console.log(data);
                     if (data.etat === 'erreur') {
                         $('body').html(pageErreur);
                     }
@@ -61,13 +61,15 @@
                                 Etat.tour = data.numeroTour;
                                 Etat.jardinJoueur = data.jardinJoueur;
                                 Etat.jardinAdversaire = data.jardinAdversaire;
+                                Etat.updateJardin();
                             }
                         }
                         else {
 
                         }
                     }
-                }).fail(function () {
+                }).fail(function (data) {
+                    console.log(data);
                     $('body').html(pageErreur);
                 });
             }

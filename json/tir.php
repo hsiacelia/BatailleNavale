@@ -6,8 +6,6 @@ header('Content-type: application/json');
 
 $obj = new stdClass();
 
-//TODO GET vers POST
-
 if (isset($_POST['idJoueur'], $_POST['idPartie'], $_POST['X'], $_POST['Y'])) {
     $idJoueur = $_POST['idJoueur'];
     $idPartie = $_POST['idPartie'];
@@ -37,13 +35,15 @@ if (isset($_POST['idJoueur'], $_POST['idPartie'], $_POST['X'], $_POST['Y'])) {
                 $token = creerToken();
                 // echo $token;
                 if (verifierToken($joueurActuel, $token)) {
-                    $changement = str_replace('-', '+', $joueurActuel['jardin'][$X][$Y]);
-                    $joueurActuel['jardin'][$X][$Y] = $changement;
+                    $changement = str_replace('-', '+', $joueurAdversaire['jardin'][$X][$Y]);
+                    $joueurAdversaire['jardin'][$X][$Y] = $changement;
                     foreach ($partie['joueurs'] as $key => $joueur) {
                         if ($joueur['id'] == $idJoueur) {
                             $partie['joueurs'][$key] = $joueurActuel;
-                            $partie['joueurs'][$key]['jardin'] = $joueurActuel['jardin'];
                             $partie['joueurs'][$key]['etat'] = str_replace('joue', 'attente', $partie['joueurs'][$key]['etat']);
+                        }
+                        else{
+                            $partie['joueurs'][$key]['jardin'] = $joueurAdversaire['jardin'];
                         }
                     }
                     file_put_contents($fichierPartie, json_encode($partie));

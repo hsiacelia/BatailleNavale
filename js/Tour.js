@@ -29,6 +29,15 @@ class Tour {
             }
         }
 
+        this.updateJardin();
+
+        $('#jardinAdversaire .case').click(function () {
+            console.log('tir');
+            Tour.tir($(this).data('x'), $(this).data('y'));
+        });
+    }
+
+    updateJardin() {
         // remplissage jardinJoueur
         for (let x = 0; x < this.tailleJardin; ++x) {
             for (let y = 0; y < this.tailleJardin; ++y) {
@@ -63,11 +72,6 @@ class Tour {
                 }
             }
         }
-
-        $('#jardinAdversaire .case').click(function () {
-            console.log('tir');
-            Tour.tir($(this).data('x'), $(this).data('y'));
-        });
     }
 
     set tour(numeroTour) {
@@ -77,6 +81,8 @@ class Tour {
 
     static tir(x, y) {
         console.log('tir en ' + x + ' ' + y);
+        console.log('idPartie ' + idPartie);
+        console.log('idJoueur ' + idJoueur);
         $.ajax({
             url: './json/tir.php',
             method: 'POST',
