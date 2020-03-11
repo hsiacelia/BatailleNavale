@@ -1,21 +1,22 @@
 <?php
 
-function create(){
+function creerToken(){
     $str = array();
     $i = 0;
     while ($i<10) {
-        $str = $str + rand(0,9);
+        $str[$i] = rand(0,9);
         ++$i;
     }
     return implode($str);
 }
 
-function verifier($joueur,$token){
-    if($token == null){
+function verifierToken(&$joueur,$token){
+    $tokenjs = $joueur['token'];
+    // echo $tokenjs;
+    if($tokenjs == null){
         $joueur['token'] = $token;
         return true; // il peut jouer
     }
-    $tokenjs = $joueur['token'];
     if($tokenjs == $token) {
         return true; // il peut jouer
     }
