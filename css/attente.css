@@ -31,7 +31,7 @@
     from{
         transform: translate(-40%)rotate(0);
     }
-    40%{
+    50%{
         left: 70%;
     }
     to{
