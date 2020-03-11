@@ -1,6 +1,8 @@
 
 
 //cree les element du menu : (bouton jouer, crédits ...)
+// let idPartie;
+// let idJoueur;
 
 class Menu {
     constructor() {
@@ -15,9 +17,9 @@ class Menu {
                         method: 'POST'
                     })
                     .done(function (data) {
-                        console.log(data);
-                        // idPartie = data.idPartie;
-                        // idJoueur = data.idJoueur;
+                        idPartie = data.idPartie;
+                        idJoueur = data.idJoueur;
+
                     })
                     .fail(function () {
                         $('body').html('Problème au niveau du serveur. <br> Le problème est de notre coté veuillez patienter.<br>Si le problème persiste veuillez nous contacter.');
