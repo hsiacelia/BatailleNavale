@@ -1,5 +1,5 @@
 class AttentePartie {
     constructor() {
-        $('body').html('AttentePartie');
+        $('body').html('<div class="ecranAttente"></div>');
     }
 }
