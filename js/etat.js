@@ -35,7 +35,7 @@
                                 case 'AttentePartie':
                                     Etat = new AttentePartie();
                                     break;
-                                case 'PlacementPions':
+                                case 'Placement en cours':
                                     Etat = new PlacementPions();
                                     break;
                                 case 'Tour':

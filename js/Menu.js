@@ -7,6 +7,7 @@ class Menu {
                 .html('Jouer')
                 .click(function () {
                     //appel du fichier jouer.php
+                    console.log('click jouer ajax lancé');
                     $.ajax({
                         url: './json/jouer.php',
                         method: 'POST'
@@ -14,10 +15,9 @@ class Menu {
                     .done(function (data) {
                         idPartie = data.idPartie;
                         idJoueur = data.idJoueur;
-
                     })
                     .fail(function () {
-                        $('body').html('Problème au niveau du serveur. <br> Le problème est de notre coté veuillez patienter.<br>Si le problème persiste veuillez nous contacter.');
+                        $('body').html(pageErreur);
                     })
                 }),
                 
