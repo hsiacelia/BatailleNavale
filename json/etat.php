@@ -29,20 +29,38 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
             }
         }
 
-
+        /** LES ETATS **/
         if (isset($joueurActuel)) {
             $obj->etat = $joueurActuel['etat'];
-            if ($joueurActuel['etat'] == "placement en cours") {
+            if ($joueurActuel['etat'] == "attente partie") { // attente partie
+                if($joueurAdversaire['etat'] == "attente partie"){
+                    $partie['joueurs'][0]['etat'] = "placement en cours";
+                    $partie['joueurs'][1]['etat'] = "placement en cours";
+                    $partie['joueurs'][0]['jardin'] = [];
+                    $partie['joueurs'][1]['jardin'] = [];
+                    for($x = 0; $x < 12; ++$x){
+                        array_push($partie['joueurs'][0]['jardin'], []);
+                        array_push($partie['joueurs'][1]['jardin'], []);
+                        for($y = 0; $y < 12; ++$y){
+                            array_push($partie['joueurs'][0]['jardin'][$x], "0-");
+                            array_push($partie['joueurs'][1]['jardin'][$x], "0-");
+                        }
+                    }
+                    $partie['joueurs'][0]['debutPlacement'] = strtotime('now');
+                    $partie['joueurs'][1]['debutPlacement'] = strtotime('now');
+                    
+                    file_put_contents($fichierPartie,  json_encode($partie));
+                }
+            } elseif ($joueurActuel['etat'] == "placement en cours") { // placemement en cours
                 $obj->jardin = $joueurActuel['jardin'];
 
                 //vérification temps écoulé
                 require_once './../php/Timer.php';
                 $temps = new Timer();
-                $obj->prout = $joueurActuel['debutTour'];
-                if ($temps->resultat($joueurActuel['debutTour'], false)) {
-                    $obj->dev = 'pas fini !';
+                if ($temps->resultat($joueurActuel['debutPlacement'], false)) {
+                    // $obj->dev = 'pas fini !';
                 } else {
-                    $obj->dev = 'fini !';
+                    // $obj->dev = 'fini !';
                     $partie['joueurs'][0]['etat'] = "tour 1 joue";
                     $partie['joueurs'][1]['etat'] = "tour 1 joue";
                     $partie['joueurs'][0]['debutTour'] = strtotime('now');
@@ -50,7 +68,7 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
 
                     file_put_contents($fichierPartie,  json_encode($partie));
                 }
-            } else if ($joueurActuel['etat'] == "placement fini") {
+            } else if ($joueurActuel['etat'] == "placement fini") { // placemement fini
                 $obj->jardin = $joueurActuel['jardin'];
                 if ($joueurAdversaire['etat'] == "placement fini") {
                     $partie['joueurs'][0]['etat'] = "tour 1 joue";
@@ -142,8 +160,6 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                         }
 
                         if (count($nombreiteration) == 1) {
-                            echo 'gagne lustucru';
-
                             $partie['joueurs'][$idJoueurActuel]['etat'] = "gagne";
                             $partie['joueurs'][$idJoueurAdversaire]['etat'] = "perdu";
 
