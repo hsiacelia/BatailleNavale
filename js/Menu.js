@@ -1,6 +1,7 @@
 //cree les element du menu : (bouton jouer, crédits ...)
 class Menu {
     constructor() {
+        $('body').html("");
         $('body').append(
             $('<button />')
                 .attr('id', 'bouton-jouer')

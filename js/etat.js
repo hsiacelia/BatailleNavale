@@ -32,7 +32,7 @@
                                 case 'Menu':
                                     Etat = new Menu();
                                     break;
-                                case 'AttentePartie':
+                                case 'Attente partie':
                                     Etat = new AttentePartie();
                                     break;
                                 case 'Placement en cours':

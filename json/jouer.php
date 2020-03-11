@@ -92,7 +92,7 @@ if (file_exists($fichierAttente)) {
 
         array_push($attente['parties'], $nouvellePartie);
         file_put_contents($fichierAttente, json_encode($attente));
-        // file_put_contents('parties/'.$nomFichier.'.json', json_encode($nouvellePartie));
+        file_put_contents('parties/'.$nomFichier.'.json', json_encode($nouvellePartie));
 
         // data en sortie de l appel ajax
         $obj->idPartie = $nomFichier;
