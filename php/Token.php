@@ -4,13 +4,13 @@ function create(){
     $str = array();
     $i = 0;
     while ($i<10) {
-        $str = $str + rand(0,9);
+        $str[$i] = rand(0,9);
         ++$i;
     }
     return implode($str);
 }
 
-function verifier($joueur,$token){
+function verifier(&$joueur,$token){
     if($token == null){
         $joueur['token'] = $token;
         return true; // il peut jouer
