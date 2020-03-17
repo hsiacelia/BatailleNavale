@@ -39,7 +39,7 @@
                                     Etat = new PlacementPions();
                                     break;
                                 case 'Tour':
-                                    Etat = new Tour(data.jardinJoueur, data.jardinAdversaire, data.numeroTour);
+                                    Etat = new Tour(data.jardinJoueur, data.jardinAdversaire, data.numeroTour, data.etatTour);
                                     break;
                                 case 'Perdu':
                                     Etat = new Perdu();
@@ -59,9 +59,14 @@
                         else if (data.etat == 'tour') {
                             if (data.numeroTour != Etat.numeroTour) {
                                 Etat.tour = data.numeroTour;
+                                Etat.etat = data.etatTour;
                                 Etat.jardinJoueur = data.jardinJoueur;
                                 Etat.jardinAdversaire = data.jardinAdversaire;
                                 Etat.updateJardin();
+                            }
+
+                            if (data.etatTour != Etat.etatTour) {
+                                Etat.etat = data.etatTour;
                             }
                         }
                         else {

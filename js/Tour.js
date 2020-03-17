@@ -1,14 +1,31 @@
 class Tour {
-    constructor(jardinJoueur, jardinAdversaire, numeroTour) {
+    #cssCaseVide = {
+        "background": 'var(--couleur-principale-claire)'
+    };
+    #cssCaseToucheVide = {
+        "background": 'grey'
+    };
+    #cssCaseToucheRemplit = {
+        "background": 'red'
+    };
+    constructor(jardinJoueur, jardinAdversaire, numeroTour, etatTour) {
         this.numeroTour = numeroTour;
+        this.etatTour = etatTour;
         this.jardinJoueur = jardinJoueur;
         console.log(this.jardinJoueur);
         this.jardinAdversaire = jardinAdversaire;
         console.log(this.jardinAdversaire);
         this.tailleJardin = this.jardinJoueur.length;
 
-        $('body').html('<p>' + this.numeroTour + '</p><div id="jardins"><div id="jardinJoueur"></div><div id="jardinAdversaire"></div></div>');
+        $('body').html('<p class="numeroTour">' + this.numeroTour + '</p><p class="minuterie"></p><p id="attenteTirAdversaire">En attente du tir adverse...</p><div id="jardins"><div id="jardinJoueur"></div><div id="jardinAdversaire"></div></div>');
 
+        //affichage ou non de la zone d'attente
+        if (this.etatTour == 'joue') {
+            $('#attenteTirAdversaire').css('display', 'none');
+        }
+        else {
+            $('#attenteTirAdversaire').css('display', 'flex');
+        }
 
         // creation des jardins
         for (let y = 0; y < this.tailleJardin; ++y) {
@@ -43,11 +60,65 @@ class Tour {
             for (let y = 0; y < this.tailleJardin; ++y) {
                 let cssX = x + 1;
                 let cssY = y + 1;
-                if (this.jardinJoueur[x][y].substr(-1) == '+') {
-                    $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css('background', 'blue');
+
+                const regex = /^[A-Za-z]*$/;
+                if (this.jardinJoueur[x][y].substr(0, 1).match(regex)) {
+                    let img = this.jardinJoueur[x][y].substr(0, 2) + '.png';
+                    if (this.jardinJoueur[x][y].substr(-1) == '+') {
+                        $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
+                            "background-image": 'url("img/caillou.png"), url(img/' + img + ')',
+                            "background-size": '90% 90%, cover',
+                            "background-repeat": 'no-repeat, no-repeat',
+                            "background-color": 'transparent',
+                            "transform": 'rotate(0deg)'
+                        }).addClass('coule');
+                    }
+                    else {
+                        $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
+                            "background-image": 'url(img/' + img + ')',
+                            "background-size": 'cover',
+                            "background-repeat": 'no-repeat',
+                            "background-color": 'transparent',
+                            "transform": 'rotate(0deg)'
+                        }).addClass('coule');
+                    }
+
+                    let rotation = this.jardinJoueur[x][y].substr(2, 1);
+                    switch (rotation) {
+                        case "H":
+                            break;
+                        case "D":
+                            $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
+                                "transform": 'rotate(90deg)'
+                            });
+                            break;
+                        case "G":
+                            $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
+                                "transform": 'rotate(-90deg)'
+                            });
+                            break;
+                        case "B":
+                            $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
+                                "transform": 'rotate(180deg)'
+                            });
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
                 else {
-                    $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css('background', 'grey');
+                    // $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css(this.#cssCaseVide);
+                }
+
+
+
+                if (this.jardinJoueur[x][y].substr(-1) == '+') {
+                    $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').addClass('touche');
+                    // .css('background', 'blue');
+                }
+                else {
+                    // $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css(this.#cssCaseVide);
                 }
             }
         }
@@ -64,7 +135,7 @@ class Tour {
                         "background": 'url(img/' + img + ') no-repeat',
                         "background-size": 'cover',
                         "transform": 'rotate(0deg)'
-                    });
+                    }).addClass('coule');
                     let rotation = this.jardinAdversaire[x][y].substr(2, 1);
                     switch (rotation) {
                         case "H":
@@ -90,13 +161,13 @@ class Tour {
                     }
                 }
                 else if (this.jardinAdversaire[x][y] == '1') {
-                    $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css('background', 'black');
+                    $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').addClass('toucheVide');
                 }
                 else if (this.jardinAdversaire[x][y].substr(-1) == '+') {
-                    $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css('background', 'blue');
+                    $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').addClass('toucheRemplit');
                 }
                 else {
-                    $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css('background', 'grey');
+                    // $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css(this.#cssCaseVide);
                 }
             }
         }
@@ -104,7 +175,21 @@ class Tour {
 
     set tour(numeroTour) {
         this.numeroTour = numeroTour;
-        $('p').html(this.numeroTour);
+        $('.numeroTour').html(this.numeroTour);
+        new Timer(tempsTour, $('.minuterie'));
+    }
+
+    set etat(etatTour) {
+        this.etatTour = etatTour;
+        console.log('changement d\'etat');
+        
+        //affichage ou non de la zone d'attente
+        if (this.etatTour == 'joue') {
+            $('#attenteTirAdversaire').css('display', 'none');
+        }
+        else {
+            $('#attenteTirAdversaire').css('display', 'flex');
+        }
     }
 
     static tir(x, y) {
