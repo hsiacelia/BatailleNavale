@@ -59,7 +59,35 @@ class Tour {
                 let cssY = y + 1;
                 const regex = /^[A-Za-z]*$/;
                 if (this.jardinAdversaire[x][y].substr(0, 1).match(regex)) {
-                    $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css('background', 'red');
+                    let img = this.jardinAdversaire[x][y].substr(0, 2) + '.png';
+                    $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
+                        "background": 'url(img/' + img + ') no-repeat',
+                        "background-size": 'cover',
+                        "transform": 'rotate(0deg)'
+                    });
+                    let rotation = this.jardinAdversaire[x][y].substr(2, 1);
+                    switch (rotation) {
+                        case "H":
+                            break;
+                        case "D":
+                            $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
+                                "transform": 'rotate(90deg)'
+                            });
+                            break;
+                        case "G":
+                            $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
+                                "transform": 'rotate(-90deg)'
+                            });
+                            break;
+                        case "B":
+                            $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
+                                "transform": 'rotate(180deg)'
+                            });
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
                 else if (this.jardinAdversaire[x][y] == '1') {
                     $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css('background', 'black');

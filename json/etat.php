@@ -106,13 +106,13 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                         $toutesLesCasesAdverses[$numCase] = $case[0].$case[strlen($case)-1];
                     }
                     $toutesLesCasesAdverses = array_unique($toutesLesCasesAdverses);
-                    print_r($toutesLesCasesAdverses);
+                    // print_r($toutesLesCasesAdverses);
                     foreach ($toutesLesCasesAdverses as $numCase => $case) {
                         // $toutesLesCasesAdverses[$numCase] = rtrim($case, "+-");
                         $toutesLesCasesAdverses[$numCase] = $case[0];
                     }
                     $nombreiteration = array_count_values($toutesLesCasesAdverses);
-                    print_r($nombreiteration);
+                    // print_r($nombreiteration);
                     unset($nombreiteration['0']);
                     $jardinAdversaire;
                     foreach ($joueurAdversaire['jardin'] as $numLigne => $ligne) {
