@@ -101,10 +101,18 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                         $toutesLesCasesAdverses = array_merge($toutesLesCasesAdverses, $ligne);
                     }
                     $toutesLesCasesAdverses = array_unique($toutesLesCasesAdverses);
+                    //ne prendre que le premier et dernier caractère (le type de l'objet et si il est touché ou non)
+                    foreach($toutesLesCasesAdverses as $numCase => $case){
+                        $toutesLesCasesAdverses[$numCase] = $case[0].$case[strlen($case)-1];
+                    }
+                    $toutesLesCasesAdverses = array_unique($toutesLesCasesAdverses);
+                    print_r($toutesLesCasesAdverses);
                     foreach ($toutesLesCasesAdverses as $numCase => $case) {
-                        $toutesLesCasesAdverses[$numCase] = rtrim($case, "+-");
+                        // $toutesLesCasesAdverses[$numCase] = rtrim($case, "+-");
+                        $toutesLesCasesAdverses[$numCase] = $case[0];
                     }
                     $nombreiteration = array_count_values($toutesLesCasesAdverses);
+                    print_r($nombreiteration);
                     unset($nombreiteration['0']);
                     $jardinAdversaire;
                     foreach ($joueurAdversaire['jardin'] as $numLigne => $ligne) {
@@ -112,7 +120,8 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                             if (strpos($case, "+") !== false) {
                                 if (rtrim($case, "+") == "0") {
                                     $jardinAdversaire[$numLigne][$numCase] = "1";
-                                } else if (rtrim($case, "+") != "0" && $nombreiteration[rtrim($case, "+")] == 1) {
+                                } else if (rtrim($case, "+") != "0" && $nombreiteration[$case[0]] == 1) {
+                                // } else if (rtrim($case, "+") != "0" && $nombreiteration[rtrim($case, "+")] == 1) {
                                     $jardinAdversaire[$numLigne][$numCase] = rtrim($case, "+");
                                 } else {
                                     $jardinAdversaire[$numLigne][$numCase] = "+";
