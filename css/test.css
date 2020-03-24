@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.base {
+    background-image: url("../img/ballon75.png");
+    position: relative;
+    height: 76px;
+    width: 76px;
+    cursor: pointer;
+}
+
+.line{
+    display: flex;
+}
+
+.case{
+    width: 76px;
+    height: 76px;
+    background: green;
+    padding: 3px;
+    border: solid 1px;
+}
+
+.damier{
+    border: solid;
+    display: inline-block;
+}
