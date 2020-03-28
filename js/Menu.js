@@ -11,7 +11,9 @@ class Menu {
                     console.log('click jouer ajax lancé');
                     $.ajax({
                         url: './json/jouer.php',
-                        method: 'POST'
+                        method: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json'
                     })
                     .done(function (data) {
                         idPartie = data.idPartie;
@@ -29,7 +31,9 @@ class Menu {
                 .click(function () {
                     $.ajax({
                         url: '',
-                        method: ''
+                        method: '',
+                        dataType: 'json',
+                        contentType: 'application/json'
                     })
                     .done(function () {
                     })

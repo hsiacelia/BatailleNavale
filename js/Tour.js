@@ -204,7 +204,9 @@ class Tour {
                 "idJoueur": idJoueur,
                 "X": x,
                 "Y": y
-            }
+            },
+            dataType: 'json',
+            contentType: 'application/json'
         }).done(function (data) {
             console.log(data);
 

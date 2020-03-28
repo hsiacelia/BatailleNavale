@@ -16,7 +16,9 @@ class Gagne {
             console.log('click jouer ajax lancé');
             $.ajax({
                 url: './json/jouer.php',
-                method: 'POST'
+                method: 'POST',
+                dataType: 'json',
+                contentType: 'application/json'
             })
                 .done(function (data) {
                     idPartie = data.idPartie;

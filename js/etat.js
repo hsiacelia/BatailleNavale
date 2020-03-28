@@ -18,7 +18,9 @@
                     data: {
                         "idPartie": idPartie,
                         "idJoueur": idJoueur
-                    }
+                    },
+                    dataType: 'json',
+                    contentType: 'application/json'
                 }).done(function (data) {
                     console.log(data);
                     if (data.etat === 'erreur') {
