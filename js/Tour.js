@@ -135,7 +135,7 @@ class Tour {
                         "background": 'url(img/' + img + ') no-repeat',
                         "background-size": 'cover',
                         "transform": 'rotate(0deg)'
-                    }).addClass('coule');
+                    }).addClass('coule').removeClass('toucheRemplit');
                     let rotation = this.jardinAdversaire[y][x].substr(2, 1);
                     switch (rotation) {
                         case "H":
