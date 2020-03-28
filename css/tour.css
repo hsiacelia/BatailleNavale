@@ -73,12 +73,12 @@ body>p.numeroTour {
     display: none;
 }
 
-body {
+/* body {
     display: flex;
     justify-content: center;
     flex-direction: row;
     align-items: center;
-}
+} */
 
 .minuterie {
     position: fixed;
