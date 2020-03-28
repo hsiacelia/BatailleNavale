@@ -15,7 +15,7 @@ class Gagne {
             //appel du fichier jouer.php
             console.log('click jouer ajax lancé');
             $.ajax({
-                url: './json/jouer.php',
+                url: urlAjax+'json/jouer.php',
                 method: 'POST',
                 dataType: 'json',
                 contentType: 'application/json'

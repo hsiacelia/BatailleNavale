@@ -6,7 +6,7 @@ header('Content-type: application/json');
 
 $obj = new stdClass();
 
-if (isset($_POST['idJoueur'], $_POST['idPartie'], $_POST['X'], $_POST['Y'])) {
+if (!empty($_POST['idJoueur']) && !empty($_POST['idPartie']) && !empty($_POST['X']) && !empty($_POST['Y'])) {
     $idJoueur = $_POST['idJoueur'];
     $idPartie = $_POST['idPartie'];
     $X = $_POST['X'];

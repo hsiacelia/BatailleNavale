@@ -197,7 +197,7 @@ class Tour {
         console.log('idPartie ' + idPartie);
         console.log('idJoueur ' + idJoueur);
         $.ajax({
-            url: './json/tir.php',
+            url: urlAjax+'json/tir.php',
             method: 'POST',
             data: {
                 "idPartie": idPartie,

@@ -13,7 +13,7 @@
             } else {
                 console.log('Appel ajax etat');
                 $.ajax({
-                    url: './json/etat.php',
+                    url: urlAjax+'json/etat.php',
                     method: 'GET',
                     data: {
                         "idPartie": idPartie,

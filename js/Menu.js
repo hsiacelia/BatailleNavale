@@ -10,7 +10,7 @@ class Menu {
                     //appel du fichier jouer.php
                     console.log('click jouer ajax lancé');
                     $.ajax({
-                        url: './json/jouer.php',
+                        url: urlAjax+'json/jouer.php',
                         method: 'POST',
                         dataType: 'json',
                         contentType: 'application/json'
@@ -30,7 +30,7 @@ class Menu {
                 .html('Credits')
                 .click(function () {
                     $.ajax({
-                        url: '',
+                        url: urlAjax+'',
                         method: '',
                         dataType: 'json',
                         contentType: 'application/json'
