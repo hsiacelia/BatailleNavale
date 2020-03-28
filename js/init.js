@@ -2,6 +2,7 @@
 // let idJoueur = '1111';
 let idPartie = null;
 let idJoueur = null;
+// let urlAjax = './';
 let urlAjax = 'https://hugolevet.fr/git/BatailleNavale/';
 let Etat = new Menu();
 let etatActuel;
