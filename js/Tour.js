@@ -210,7 +210,8 @@ class Tour {
         }).done(function (data) {
             console.log(data);
 
-        }).fail(function () {
+        }).fail(function (data) {
+            console.log(data);
             $('body').html(pageErreur);
         });
     }
