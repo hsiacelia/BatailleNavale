@@ -7,8 +7,24 @@ class Gagne {
             '</div>' +
             '<div class="finPartie">' +
             '<div><img src="img/garcon 1 - heureux.png" alt=""></div>' +
-            '<div id="rejouer"><button>Rejouez</button></div>' +
+            '<div id="rejouer"><button id="rejoue">Rejouez</button></div>' +
             '<div><img src="img/garcon 1 - triste.png" alt=""></div>' +
             '</div>');
+
+        $('#rejoue').click(function () {
+            //appel du fichier jouer.php
+            console.log('click jouer ajax lancé');
+            $.ajax({
+                url: './json/jouer.php',
+                method: 'POST'
+            })
+                .done(function (data) {
+                    idPartie = data.idPartie;
+                    idJoueur = data.idJoueur;
+                })
+                .fail(function () {
+                    $('body').html(pageErreur);
+                })
+        })
     }
 }
