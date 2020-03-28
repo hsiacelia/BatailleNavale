@@ -35,8 +35,8 @@ if (isset($_POST['idJoueur'], $_POST['idPartie'], $_POST['X'], $_POST['Y'])) {
                 $token = creerToken();
                 // echo $token;
                 if (verifierToken($joueurActuel, $token)) {
-                    $changement = str_replace('-', '+', $joueurAdversaire['jardin'][$X][$Y]);
-                    $joueurAdversaire['jardin'][$X][$Y] = $changement;
+                    $changement = str_replace('-', '+', $joueurAdversaire['jardin'][$Y][$X]);
+                    $joueurAdversaire['jardin'][$Y][$X] = $changement;
                     foreach ($partie['joueurs'] as $key => $joueur) {
                         if ($joueur['id'] == $idJoueur) {
                             $partie['joueurs'][$key] = $joueurActuel;

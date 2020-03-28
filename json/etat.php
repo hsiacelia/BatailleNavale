@@ -39,14 +39,27 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                         $partie['joueurs'][1]['etat'] = "placement en cours";
                         $partie['joueurs'][0]['jardin'] = [];
                         $partie['joueurs'][1]['jardin'] = [];
-                        for ($x = 0; $x < 12; ++$x) {
-                            array_push($partie['joueurs'][0]['jardin'], []);
-                            array_push($partie['joueurs'][1]['jardin'], []);
-                            for ($y = 0; $y < 12; ++$y) {
-                                array_push($partie['joueurs'][0]['jardin'][$x], "0-");
-                                array_push($partie['joueurs'][1]['jardin'][$x], "0-");
-                            }
-                        }
+
+                        //initialisation des jardins
+                        //joueur 1 = jardin 1
+                        $partie['joueurs'][0]['jardin'] = json_decode(file_get_contents("jardinsDeBase/jardin1.json"), true);
+
+                        //joueur 2 = jardin 2
+                        $partie['joueurs'][1]['jardin'] = json_decode(file_get_contents("jardinsDeBase/jardin2.json"), true);
+
+                        $partie['joueurs'][0]['etat'] = "placement fini";
+                        $partie['joueurs'][1]['etat'] = "placement fini";
+
+                        //mise à zéro
+                        // for ($x = 0; $x < 12; ++$x) {
+                        //     array_push($partie['joueurs'][0]['jardin'], []);
+                        //     array_push($partie['joueurs'][1]['jardin'], []);
+                        //     for ($y = 0; $y < 12; ++$y) {
+                        //         array_push($partie['joueurs'][0]['jardin'][$x], "0-");
+                        //         array_push($partie['joueurs'][1]['jardin'][$x], "0-");
+                        //     }
+                        // }
+
                         $partie['joueurs'][0]['debutPlacement'] = strtotime('now');
                         $partie['joueurs'][1]['debutPlacement'] = strtotime('now');
 
@@ -102,8 +115,8 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                     }
                     $toutesLesCasesAdverses = array_unique($toutesLesCasesAdverses);
                     //ne prendre que le premier et dernier caractère (le type de l'objet et si il est touché ou non)
-                    foreach($toutesLesCasesAdverses as $numCase => $case){
-                        $toutesLesCasesAdverses[$numCase] = $case[0].$case[strlen($case)-1];
+                    foreach ($toutesLesCasesAdverses as $numCase => $case) {
+                        $toutesLesCasesAdverses[$numCase] = $case[0] . $case[strlen($case) - 1];
                     }
                     $toutesLesCasesAdverses = array_unique($toutesLesCasesAdverses);
                     // print_r($toutesLesCasesAdverses);
@@ -121,7 +134,7 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'])) {
                                 if (rtrim($case, "+") == "0") {
                                     $jardinAdversaire[$numLigne][$numCase] = "1";
                                 } else if (rtrim($case, "+") != "0" && $nombreiteration[$case[0]] == 1) {
-                                // } else if (rtrim($case, "+") != "0" && $nombreiteration[rtrim($case, "+")] == 1) {
+                                    // } else if (rtrim($case, "+") != "0" && $nombreiteration[rtrim($case, "+")] == 1) {
                                     $jardinAdversaire[$numLigne][$numCase] = rtrim($case, "+");
                                 } else {
                                     $jardinAdversaire[$numLigne][$numCase] = "+";

@@ -62,9 +62,9 @@ class Tour {
                 let cssY = y + 1;
 
                 const regex = /^[A-Za-z]*$/;
-                if (this.jardinJoueur[x][y].substr(0, 1).match(regex)) {
-                    let img = this.jardinJoueur[x][y].substr(0, 2) + '.png';
-                    if (this.jardinJoueur[x][y].substr(-1) == '+') {
+                if (this.jardinJoueur[y][x].substr(0, 1).match(regex)) {
+                    let img = this.jardinJoueur[y][x].substr(0, 2) + '.png';
+                    if (this.jardinJoueur[y][x].substr(-1) == '+') {
                         $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
                             "background-image": 'url("img/caillou.png"), url(img/' + img + ')',
                             "background-size": '90% 90%, cover',
@@ -83,7 +83,7 @@ class Tour {
                         }).addClass('coule');
                     }
 
-                    let rotation = this.jardinJoueur[x][y].substr(2, 1);
+                    let rotation = this.jardinJoueur[y][x].substr(2, 1);
                     switch (rotation) {
                         case "H":
                             break;
@@ -113,7 +113,7 @@ class Tour {
 
 
 
-                if (this.jardinJoueur[x][y].substr(-1) == '+') {
+                if (this.jardinJoueur[y][x].substr(-1) == '+') {
                     $('#jardinJoueur .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').addClass('touche');
                     // .css('background', 'blue');
                 }
@@ -129,14 +129,14 @@ class Tour {
                 let cssX = x + 1;
                 let cssY = y + 1;
                 const regex = /^[A-Za-z]*$/;
-                if (this.jardinAdversaire[x][y].substr(0, 1).match(regex)) {
-                    let img = this.jardinAdversaire[x][y].substr(0, 2) + '.png';
+                if (this.jardinAdversaire[y][x].substr(0, 1).match(regex)) {
+                    let img = this.jardinAdversaire[y][x].substr(0, 2) + '.png';
                     $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').css({
                         "background": 'url(img/' + img + ') no-repeat',
                         "background-size": 'cover',
                         "transform": 'rotate(0deg)'
                     }).addClass('coule');
-                    let rotation = this.jardinAdversaire[x][y].substr(2, 1);
+                    let rotation = this.jardinAdversaire[y][x].substr(2, 1);
                     switch (rotation) {
                         case "H":
                             break;
@@ -160,10 +160,10 @@ class Tour {
                             break;
                     }
                 }
-                else if (this.jardinAdversaire[x][y] == '1') {
+                else if (this.jardinAdversaire[y][x] == '1') {
                     $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').addClass('toucheVide');
                 }
-                else if (this.jardinAdversaire[x][y].substr(-1) == '+') {
+                else if (this.jardinAdversaire[y][x].substr(-1) == '+') {
                     $('#jardinAdversaire .ligne:nth-child(' + cssY + ') .case:nth-child(' + cssX + ')').addClass('toucheRemplit');
                 }
                 else {
