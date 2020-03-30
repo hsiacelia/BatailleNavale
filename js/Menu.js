@@ -3,6 +3,8 @@ class Menu {
     constructor() {
         $('body').html("");
         $('body').append(
+            $('<h1 class="titre">Va jouer dehors !</h1>'),
+
             $('<button />')
                 .attr('id', 'bouton-jouer')
                 .html('Jouer')

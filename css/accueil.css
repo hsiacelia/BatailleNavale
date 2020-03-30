@@ -1,0 +1,36 @@
+body{
+    background: url("../img/accueil.png");
+    position: fixed;
+    background-size: contain;
+}
+
+.titre{
+    text-align: center;
+    font-size: 60px;
+    margin-top: 10vh;
+}
+
+#bouton-jouer {
+    margin-top: 15vh;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 35px;
+    background: rgba(255,255,255,0.3);
+    border: 2px solid black;
+    height: 50px;
+    width: 200px;
+    cursor: pointer;
+}
+
+#bouton-jouer:hover {
+    background: rgba(255,255,255,0.6);
+}
+
+#bouton-jouer:active {
+    background: rgba(255,255,255,0);
+}
+
+#div-credits {
+display: none;
+}
