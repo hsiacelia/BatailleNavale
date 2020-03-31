@@ -1,5 +1,6 @@
 class Erreur {
     constructor() {
-        $('body').html('Erreur');
+        $('body').html('Erreur')
+        .css('background-image', 'none');
     }
 }

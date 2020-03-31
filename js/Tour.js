@@ -17,7 +17,8 @@ class Tour {
         console.log(this.jardinAdversaire);
         this.tailleJardin = this.jardinJoueur.length;
 
-        $('body').html('<p class="numeroTour">' + this.numeroTour + '</p><p class="minuterie"></p><p id="attenteTirAdversaire">En attente du tir adverse...</p><div id="jardins"><div id="jardinJoueur"></div><div id="jardinAdversaire"></div></div>');
+        $('body').html('<p class="numeroTour">' + this.numeroTour + '</p><p class="minuterie"></p><p id="attenteTirAdversaire">En attente du tir adverse...</p><div id="jardins"><div id="jardinJoueur"></div><div id="jardinAdversaire"></div></div>')
+        .css('background-image', 'none');
 
         //affichage ou non de la zone d'attente
         if (this.etatTour == 'joue') {

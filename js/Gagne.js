@@ -9,7 +9,8 @@ class Gagne {
             '<div><img src="img/garcon 1 - heureux.png" alt=""></div>' +
             '<div id="rejouer"><button id="rejoue">Rejouez</button></div>' +
             '<div><img src="img/garcon 1 - triste.png" alt=""></div>' +
-            '</div>');
+            '</div>')
+            .css('background-image', 'none');
 
         $('#rejoue').click(function () {
             //appel du fichier jouer.php

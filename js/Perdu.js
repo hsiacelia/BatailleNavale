@@ -9,6 +9,7 @@ class Perdu {
             '<div><img src="img/garcon 1 - triste.png" alt=""></div>' +
             '<div id="rejouer"><button>Rejouez</button></div>' +
             '<div><img src="img/garcon 1 - heureux.png" alt=""></div>' +
-            '</div>');
+            '</div>')
+            .css('background-image', 'none');
     }
 }

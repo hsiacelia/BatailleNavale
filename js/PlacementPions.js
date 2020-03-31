@@ -1,5 +1,6 @@
 class PlacementPions {
     constructor() {
-        $('body').html('PlacementPions');
+        $('body').html('PlacementPions')
+        .css('background-image', 'none');
     }
 }
