@@ -198,19 +198,21 @@ class Tour {
         console.log('idJoueur ' + idJoueur);
         $.ajax({
             url: urlAjax+'json/tir.php',
-            method: 'GET',
+            method: 'POST',
             data: {
                 "idPartie": idPartie,
                 "idJoueur": idJoueur,
                 "X": x,
                 "Y": y
             },
-            dataType: 'json'/*,
-            contentType: 'application/json'*/
+            dataType: 'json',
+            contentType: 'application/json'
         }).done(function (data) {
+            console.log('reponse tir :');
             console.log(data);
 
         }).fail(function (data) {
+            console.log('reponse tir raté :');
             console.log(data);
             $('body').html(pageErreur);
         });

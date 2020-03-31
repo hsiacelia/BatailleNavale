@@ -1,16 +1,16 @@
 <?php
 
-header('Cache-Control: no-cache, must-revalidate');
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-header('Content-type: application/json');
+// header('Cache-Control: no-cache, must-revalidate');
+// header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+// header('Content-type: application/json');
 
 $obj = new stdClass();
 
-if (isset($_GET['idJoueur'], $_GET['idPartie'], $_GET['X'], $_GET['Y'])) {
-    $idJoueur = $_GET['idJoueur'];
-    $idPartie = $_GET['idPartie'];
-    $X = $_GET['X'];
-    $Y = $_GET['Y'];
+if (isset($_POST['idJoueur'], $_POST['idPartie'], $_POST['X'], $_POST['Y'])) {
+    $idJoueur = $_POST['idJoueur'];
+    $idPartie = $_POST['idPartie'];
+    $X = $_POST['X'];
+    $Y = $_POST['Y'];
     if ($X < 12 && $X >= 0 && $Y < 12 && $Y >= 0) {
         $fichierPartie =  "parties/" . $idPartie . ".json";
         if (file_exists($fichierPartie)) {
@@ -31,7 +31,7 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'], $_GET['X'], $_GET['Y'])) {
             }
 
             if (isset($joueurActuel)) {
-                require_once('./../php/token.php');
+                require_once('../php/token.php');
                 $token = creerToken();
                 // echo $token;
                 if (verifierToken($joueurActuel, $token)) {
@@ -64,6 +64,7 @@ if (isset($_GET['idJoueur'], $_GET['idPartie'], $_GET['X'], $_GET['Y'])) {
         $obj->success = false;
         $obj->message = 'Mauvais placement.';
     }
+    
 } else {
     $obj->success = false;
     $obj->message = 'Pas assez de variables entrante';
