@@ -205,8 +205,8 @@ class Tour {
                 "X": x,
                 "Y": y
             },
-            dataType: 'json',
-            contentType: 'application/json'
+            dataType: 'json'/*,
+            contentType: 'application/json'*/
         }).done(function (data) {
             console.log('reponse tir :');
             console.log(data);

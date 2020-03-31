@@ -6,7 +6,7 @@ header('Content-type: application/json');
 
 $obj = new stdClass();
 
-if (isset($_POST['idJoueur'], $_POST['idPartie'], $_POST['X'], $_POST['Y'])) {
+// if (isset($_POST['idJoueur'], $_POST['idPartie'], $_POST['X'], $_POST['Y'])) {
     $idJoueur = $_POST['idJoueur'];
     $idPartie = $_POST['idPartie'];
     $X = $_POST['X'];
@@ -65,9 +65,9 @@ if (isset($_POST['idJoueur'], $_POST['idPartie'], $_POST['X'], $_POST['Y'])) {
         $obj->message = 'Mauvais placement.';
     }
     
-} else {
-    $obj->success = false;
-    $obj->message = 'Pas assez de variables entrante';
-}
+// } else {
+//     $obj->success = false;
+//     $obj->message = 'Pas assez de variables entrante';
+// }
 
 echo json_encode($obj);
