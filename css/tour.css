@@ -1,0 +1,133 @@
+#jardins {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.jardinAdversaire {
+    cursor: none;
+}
+
+.ligne {
+    display: flex;
+}
+
+.case {
+    width: 35px;
+    height: 35px;
+    background-color: var(--couleur-principale-claire);
+    margin: 2px;
+}
+
+#jardinAdversaire .case:hover {
+    background-image: url("../img/caillou.png");
+    background-size: 90% 90%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#jardinJoueur .touche {
+    background-image: url("../img/caillou.png");
+    background-size: 90% 90%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.toucheVide {
+    background-image: url("../img/caillou.png");
+    background-size: 90% 90%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: no-drop !important;
+}
+
+.toucheRemplit {
+    background-image: url("../img/touché.png") !important;
+    background-size: 90% 90%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: no-drop !important;
+}
+
+#jardinAdversaire .toucheRemplit:hover {
+    background-image: url("../img/caillou.png"), url("../img/touché.png") !important;
+    background-size: 90% 90%, 90% 90%;
+    background-position: center center, center center;
+    background-repeat: no-repeat, no-repeat;
+}
+
+#jardinAdversaire .coule {
+    cursor: no-drop !important;
+}
+
+.coule {
+    width: 39px;
+    height: 39px;
+    margin: 0px;
+}
+
+body>p.numeroTour {
+    display: none;
+}
+
+/* body {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+} */
+
+.minuterie {
+    position: fixed;
+    font-size: 4em;
+    top: 10px;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    font-family: sans-serif;
+    color: white;
+}
+
+.plusQue3 {
+    color: yellow;
+}
+
+.plusQue2 {
+    color: orange;
+}
+
+.plusQue1 {
+    color: red;
+}
+
+#attenteTirAdversaire {
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.25);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5em;
+    font-family: sans-serif;
+    color: white;
+    animation: 3s infinite linear attenteAdversaire;
+}
+
+@keyframes attenteAdversaire {
+    0% {
+        color: white;
+    }
+    50% {
+        color: black;
+    }
+    100% {
+        color: white;
+    }
+}
