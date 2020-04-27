@@ -1,34 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Drag and Drop</title>
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" href="css/placementPions.css">
-    <script src="./js/PlacementPions.js"></script>
-    <script src="./js/Menu.js"></script>
-    <script src="./js/init.js"></script>
-    
-
-    <!-- -- -- Css - -- -- -- -->
-    <link rel="stylesheet" href="css/accueil.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/tour.css">
-    <link rel="stylesheet" href="css/attente.css">
-    <link rel="stylesheet" href="css/finPartie.css">
-</head>
-
-<body>
-
-
-    <script>
-        (function () {
-            'use strict';
-            $(() => {
-                let lesObjets = {
+{
     "avion": {
         "nom": "avion",
         "diminutif": "A",
@@ -118,11 +88,4 @@
         "hauteur": 1,
         "largeur": 3
     }
-};
-                Etat = new PlacementPions(12, lesObjets);
-            });
-        })();
-    </script>
-</body>
-
-</html>
+}

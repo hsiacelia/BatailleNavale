@@ -15,8 +15,8 @@
 }
 
 .case {
-    width: 35px;
-    height: 35px;
+    width: var(--taille-case);
+    height: var(--taille-case);
     background-color: var(--couleur-principale-claire);
     margin: 2px;
 }

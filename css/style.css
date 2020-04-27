@@ -2,6 +2,7 @@
     --couleur-principale-claire: lightgreen;
     --couleur-principale: green;
     --couleur-principale-foncee: darkgreen;
+    --taille-case: 35px;
 }
 
 html, body {

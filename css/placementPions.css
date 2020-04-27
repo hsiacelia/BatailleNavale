@@ -1,31 +1,61 @@
-body {
+/* body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
+} */
+/* 
 .base {
     background-image: url("../img/ballon75.png");
     position: relative;
     height: 76px;
     width: 76px;
     cursor: pointer;
-}
-
-.line{
+} */
+/* 
+.line {
     display: flex;
-}
-
-.case{
+ } */
+/*
+.case {
     width: 76px;
     height: 76px;
     background: green;
     padding: 3px;
     border: solid 1px;
-}
-
-.damier{
+} */
+/* 
+.damier {
     border: solid;
     display: inline-block;
+} */
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#objets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 564px;
+    margin-right: 20px;
+}
+
+.pionPlacement {
+    width: var(--taille-case);
+    cursor: all-scroll;
+    background-size: cover;
+}
+
+.case img{
+    width: var(--taille-case);
+    height: var(--taille-case);
+}
+
+#reset{
+    cursor: no-drop;
 }
